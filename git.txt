@@ -31,7 +31,33 @@ Deliver to GitHub
 Main used commands
    git status
    git log
+      git log --stat (résumé plus court)
    git commit file -m "message"
+
+Annuler un commit:
+   git reset HEAD^ (pointe a l'avant dernier commit, seul commit est enlevé, les fichiers restent modifiés)
+   git reset HEAD~2 (avant avant dernier commit : meme notation que HEAD^^)
+Annuler un commit et les changement :
+   git reset --hard HEAD^   /!\ Annule les commits et perd tous les changements
+Annuler les modifications sur un fichier:
+   git checkout nomfichier
+
+working with branch
+   git branch branch_name
+   git checkout branch_name
+   git checkout master
+   git merge branch_name
+   git -d branch_name
+
+Rechercher dans les fichier source
+   git grep "TODO"
+
+Ignore des fichier
+   creer .gitignore (a la racine) et y entrer un nom de fichier par ligne
+      project.xml
+      dossier/temp.txt
+      *.tmp
+      cache/*
 
 -------------------
 Use VI for git diff
