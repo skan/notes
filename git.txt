@@ -5,6 +5,7 @@ Git install
 First Git config:
    git config --global user.name "Your Name Here"
    git config --global user.email "your_email@youremail.com" 
+   git config --global color.ui true
 
 SSH config
    ssh-keygen -t rsa -C "your_email@youremail.com"
@@ -31,3 +32,14 @@ Main used commands
    git status
    git log
    git commit file -m "message"
+
+-------------------
+Use VI for git diff
+   1. add this to .gitconfig
+      [diff]
+        external = git_diff_wrapper
+      [pager]
+        diff =
+   2. create a file named git_diff_wrapper, put it somewhere in your $PATH
+      #!/bin/sh
+      vimdiff "$2" "$5"
