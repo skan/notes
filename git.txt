@@ -1,0 +1,33 @@
+Git install
+   sudo apt-get install git-core
+   sudo apt-get install gitk
+
+First Git config:
+   git config --global user.name "Your Name Here"
+   git config --global user.email "your_email@youremail.com" 
+
+SSH config
+   ssh-keygen -t rsa -C "your_email@youremail.com"
+   # Creates a new ssh key using the provided email 
+
+   sudo apt-get install xclip
+   # Downloads and installs xclip
+   xclip -sel clip < ~/.ssh/id_rsa.pub
+   # Copies the contents of the id_rsa.pub file to your clipboard for paste in github site
+
+Clone a repository
+   git clone git@github.com:skan/my_work.git
+
+Create a new Git projectc:
+   git init
+
+Deliver to GitHub
+   git remote add origin git@github.com:skan/notes.git
+   # Creates a remote named "origin" pointing at your GitHub repo
+   git push origin master
+   # Sends your commits in the "master" branch to GitHub
+
+Main used commands
+   git status
+   git log
+   git commit file -m "message"
