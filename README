@@ -1,0 +1,35 @@
+install git: 
+
+	$git clone git://git.kernel.org/pub/scm/git/git.git
+	$cd git
+	$git tag
+	...
+	v1.7.2.3
+	v1.7.3-rc0
+	v1.7.3-rc1
+	v1.7.3-rc2
+	$git checkout v1.7.3-rc2
+	$make prefix=/usr/local all
+	$sudo make prefix=/usr/local install
+	$which git
+	/usr/local/bin/git
+	$git --version
+	git version 1.7.3.rc2
+
+update git:
+	$git fetch
+	...
+	From git://git.kernel.org/pub/scm/git/git
+	   f17c1de..ac752fa  html       -> origin/html
+	   525f768..4693a7d  man        -> origin/man
+	   14d8729..87b5054  master     -> origin/master
+	   4a2aa5e..7bba3dd  next       -> origin/next
+	 + ce883eb...31195da pu         -> origin/pu  (forced update)
+	   46b1f9b..5fba457  todo       -> origin/todo
+	 * [new tag]         v1.7.3     -> v1.7.3
+	 
+	$git checkout v1.7.3
+	$make prefix=/usr/local all
+	$sudo make prefix=/usr/local install
+	$git --version
+	git version 1.7.3

@@ -1,3 +1,42 @@
+install git: 
+
+	$git clone git://git.kernel.org/pub/scm/git/git.git
+	$cd git
+	$git tag
+	...
+	v1.7.2.3
+	v1.7.3-rc0
+	v1.7.3-rc1
+	v1.7.3-rc2
+	$git checkout v1.7.3-rc2
+	$make prefix=/usr/local all
+	$sudo make prefix=/usr/local install
+	$which git
+	/usr/local/bin/git
+	$git --version
+	git version 1.7.3.rc2
+
+update git:
+	$git fetch
+	...
+	From git://git.kernel.org/pub/scm/git/git
+	   f17c1de..ac752fa  html       -> origin/html
+	   525f768..4693a7d  man        -> origin/man
+	   14d8729..87b5054  master     -> origin/master
+	   4a2aa5e..7bba3dd  next       -> origin/next
+	 + ce883eb...31195da pu         -> origin/pu  (forced update)
+	   46b1f9b..5fba457  todo       -> origin/todo
+	 * [new tag]         v1.7.3     -> v1.7.3
+	 
+	$git checkout v1.7.3
+	$make prefix=/usr/local all
+	$sudo make prefix=/usr/local install
+	$git --version
+	git version 1.7.3
+
+###############################################################################################################"
+###############################################################################################################"
+
 Git install
    sudo apt-get install git-core
    sudo apt-get install gitk
@@ -80,17 +119,42 @@ links:
    http://cheat.errtheblog.com/s/git/
 
 
+-------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
+
+git clone https://github.com/skan/my_work.git
+# Clones your fork of the repository into the current directory in terminal
+cd my_work
+# Changes the active directory in the prompt to the newly cloned "my_work" directory
+git remote add upstream https://github.com/skan/my_work.git
+poon-Knife
+# Changes the active directory in the prompt to the newly cloned "Spoon-Knife" directory
+
+git remote add upstream https://github.com/octocat/Spoon-Knife.git
+# Assigns the original repository to a remote called "upstream"
+
+git fetch upstream
+# Pulls in changes not present in your local repository, without modifying your files
+
+git push origin master
+# Pushes commits to your remote repository stored on GitHub
+
+git --version
+#Check your git version
+
+git remote -v
+#Ensure the remote is correct
+
+verbose
+set GIT_CURL_VERBOSE=1
 
 
 
 
 
-
-
+--------------------------------------
 cheat sheets.
---------------------
-$ cheat git
-
+$ command line ruby cheat sheets
 Setup
 -----
 
@@ -201,8 +265,7 @@ git log
   --merge       only the commits involved in the current merge conflicts
 
 git log <ref>..<ref>
-  show commits between the specified range. Useful for seeing changes from
-  remotes:
+  show commits between the specified range. Useful for seeing changes from remotes:
   git log HEAD..origin/master # after git remote update
 
 git show <rev>
@@ -235,12 +298,10 @@ git whatchanged <file>
   all branches to a particular file.
 
 git diff <commit> head path/to/fubar
-  show the diff between a file on the current branch and potentially another
-  branch
+  show the diff between a file on the current branch and potentially another branch
 
 git diff --cached [<file>]
-  shows diff for staged (git-add'ed) files (which includes uncommitted git
-  cherry-pick'ed files)
+  shows diff for staged (git-add'ed) files (which includes uncommitted git cherry-pick'ed files)
 
 git ls-files
   list all files in the index and under version control.
@@ -276,8 +337,7 @@ Ignoring
 
 Option 1:
 
-Edit $GIT_DIR/info/exclude. See Environment Variables below for explanation on
-$GIT_DIR.
+Edit $GIT_DIR/.git/info/exclude. See Environment Variables below for explanation on $GIT_DIR.
 
 Option 2:
 
@@ -396,8 +456,7 @@ git push <repository> :<branch>
 git co <branch> <path to new file>
   Checkout a file from another branch and add it to this branch. File
   will still need to be added to the git branch, but it's present.
-  Eg. git co remote_at_origin__tick702_antifraud_blocking
-  ..../...nt_elements_for_iframe_blocked_page.rb
+  Eg. git co remote_at_origin__tick702_antifraud_blocking ..../...nt_elements_for_iframe_blocked_page.rb
 
 git show <branch> -- <path to file that does not exist>
   Eg. git show remote_tick702 -- path/to/fubar.txt
@@ -431,6 +490,19 @@ Cherry-Picking
 git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] <commit>
   selectively merge a single commit from another local branch
   Example: git cherry-pick 7300a6130d9447e18a931e898b64eefedea19544
+
+git hash-object <file-path>
+  get the blob of some file whether it is in a repository or not
+
+Find the commit in the repository that contains the file blob:
+
+    obj_blob="$1"
+    git log --pretty=format:'%T %h %s' \
+    | while read tree commit subject ; do
+        if git ls-tree -r $tree | grep -q "$obj_blob" ; then
+            echo $commit "$subject"
+        fi
+    done
 
 
 Squashing
@@ -595,8 +667,13 @@ git remote show <remote>
   show information about the remote server.
 
 git checkout -b <local branch> <remote>/<remote branch>
-  Eg git checkout -b myfeature origin/myfeature
-  Track a remote branch as a local branch.
+  Eg.:
+    git checkout -b myfeature origin/myfeature
+    git checkout -b myfeature remotes/<remote>/<branch>
+
+  Track a remote branch as a local branch. It seems that
+  somtimes an extra 'remotes/' is required, to see the exact
+  branch name, 'git branch -a'.
 
 git pull <remote> <branch>
 git push
@@ -713,10 +790,9 @@ GIT_DIR
   Location of the repository to use (for out of working directory repositories)
 
 GIT_WORKING_TREE
-  Location of the Working Directory - use with GIT_DIR to specifiy the working
-  directory root
+  Location of the Working Directory - use with GIT_DIR to specifiy the working directory root
   or to work without being in the working directory at all.
-  
+
 Changing history
 ----------------
 
@@ -733,27 +809,6 @@ Change author for all commits with given name
           else
                   git commit-tree "$@";
           fi' HEAD
+Powered by Sinatra, Puma and, to a lesser extent, Err the Blog.
 
-Version 59, updated 12 days ago.
-. o 0 ( | previous | history | revert to | current | diff )
-( add new | see all )
 
-    updated sheets
-    Recently Updated Cheat Sheets Feed
-    google_cdn_javascript
-    notify
-    whenever
-    has_one
-    cakephp
-    sam
-    css_boxing
-    git
-    rails_postgres
-    systemc
-    font_stacks
-    rakefile
-    network_interface_mac_address
-    hwh_asset_pipeline
-    rvm
-
-Powered by Camping, Heroku and, to a lesser extent, GitHub.
